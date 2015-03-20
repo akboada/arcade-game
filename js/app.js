@@ -1,7 +1,12 @@
 
 
 // Enemies our player must avoid
-var Enemy = function(x,y, speed) {
+
+
+ var gameWidth = 400;
+ var gameHeight = 400;
+
+var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     
@@ -9,8 +14,9 @@ var Enemy = function(x,y, speed) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
-    this.y = y; 
-    this.speed = speed;
+    this.y = y;
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random 
+    this.speed = Math.floor(Math.random() * (3 - 1)) + 1;
 }
     
 
@@ -20,8 +26,11 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-
     this.x += this.x * this.speed * dt;
+
+    if (this.x > gameWidth + 100){
+        this.reset();
+    }
 
     
 }
@@ -30,6 +39,10 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
+
+Enemy.prototype.reset = function() {
+    this.x = Math.floor(Math.random() * (50 - 20)) + 20;
+}    
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -43,19 +56,14 @@ var Player = function() {
 }
 
 
-Player.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-   
-    //this.y = this.y * dt;
+Player.prototype.update = function() {
+    this.y = this.y;
     
-    //this.x = this.y * dt;
+    this.x = this.x;
 
     if (this.y <= 3){
-        player.reset();
+        this.reset();
     }
-
 }
 
 
@@ -72,27 +80,53 @@ Player.prototype.reset = function(){
 
 Player.prototype.handleInput = function(key) {
 
+    switch (key) {
+        case "up":
+            this.y = this.y - this.speed;
+            break;
+        case "down":
+            if (this.y < gameHeight) {
+                this.y = this.y + this.speed;
+            }
+            break;
+        case "left":
+            if (this.x > 0){
+                this.x = this.x - this.speed;
+            }
+            break;
+        case "right":
+            if (this.x < gameWidth){
+            this.x = this.x + this.speed;    
+            }
+            break;
+        default:
+            console.log("Please select an arrow key");                          
+    }
+
+   /*
+
     if (key == "up"){
         this.y = this.y - this.speed;
     }
     
-    if (key == "down") {
-        //if (this.y > ctx.bottom - 50) { 
-         this.y = this.y + this.speed;
-        //}
+    if (this.y < gameHeight) {
+        if (key == "down") { 
+         
+        }
     }
 
     if (key == "left") {
-        //if (this.x < ctx.left){
+        if (this.x > 0){
          this.x = this.x - this.speed;
-        //}
+        }
     }    
         
     if (key == "right") {
-        //if (this.x > ctx.right) {  
+        if (this.x < gameWidth) {  
         this.x = this.x + this.speed;
-        //}
-    }    
+        }
+    }  
+    */  
 }
 
 
@@ -101,11 +135,14 @@ Player.prototype.handleInput = function(key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var enemy = new Enemy(50,50, 2);
-var enemy2 = new Enemy(130,130, .5);
-var enemy3 = new Enemy(100,225, 3);
+var enemy = new Enemy(50,50);
+var enemy2 = new Enemy(130,130);
+var enemy3 = new Enemy(100,225);
+var enemy4 = new Enemy(350,50);
+var enemy5 = new Enemy(400,130);
+var enemy6 = new Enemy(300,225);
 
-var allEnemies = [enemy, enemy2, enemy3];
+var allEnemies = [enemy, enemy2, enemy3, enemy4];
 
 var player = new Player();
 
