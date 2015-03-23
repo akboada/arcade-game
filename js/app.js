@@ -6,6 +6,8 @@ var Enemy = function() {
     this.sprite = 'images/enemy-bug.png';
     this.x = 50;
     this.yPos = [50, 130, 225];
+    
+   
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random 
     this.speed = Math.floor(Math.random() * (4 - 2)) + 2;
 }
@@ -14,7 +16,13 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
     this.x += this.x * this.speed * dt;
 
-    if (this.x == player.x + player.width && this.y == player.y + player.height){
+    this.height = 50;
+    this.width = 50;
+
+    if (this.x < player.x + player.width &&
+        this.x + this.width > player.x &&
+        this.y < player.y + player.height &&
+        this.height + this.y > player.y) {
         player.reset();
     }
 
@@ -25,7 +33,6 @@ Enemy.prototype.update = function(dt) {
     
 }
 
-// Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
@@ -35,15 +42,13 @@ Enemy.prototype.reset = function() {
     this.y = this.yPos[Math.round(Math.random() * this.yPos.length)];
 }    
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+//Player
 
 var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 400;
-    this.speed = 50; 
+    this.speed = 50;
 }
 
 
@@ -51,6 +56,9 @@ Player.prototype.update = function() {
     this.y = this.y;
     
     this.x = this.x;
+
+    this.height = 50;
+    this.width = 50;
 
     if (this.y <= 3){
         this.reset();
@@ -128,7 +136,7 @@ Player.prototype.handleInput = function(key) {
 
 
 
-var allEnemies = [enemy = new Enemy(), enemy2 = new Enemy(), new Enemy()];
+var allEnemies = [enemy = new Enemy(), enemy2 = new Enemy(), enemy3 = new Enemy()];
 
 var player = new Player();
 
