@@ -1,0 +1,17 @@
+Randomly generated numbers:
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+
+Collision detection:
+
+https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+
+http://www.iguanademos.com/Jare/docs/html5/Lessons/Lesson2/
+
+Score keeping:
+
+http://code.tutsplus.com/articles/html5-avoider-game-tutorial-keeping-score--active-10292
+
+Assorted references/ideas:
+
+https://github.com/lostdecade/simple_canvas_game
