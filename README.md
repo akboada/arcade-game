@@ -1,6 +1,20 @@
-frontend-nanodegree-arcade-game
-===============================
+#P3: Arcade Game Clone
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+Navigate the player across a treacherous path full of murderous lady bugs.
 
-for self-checking their submission.
+**Play the game here:**
+[Play Now](http://akboada.github.io/arcade-game/)
+
+##Instructions:
+
+The player starts with a total of 3 lives.
+
+The arrow keys direct the player (up, down, left, and right).
+
+Points are accumulated by reaching the water.
+
+If a player hits a bug, the player loses a life and resets to it's
+initial position.
+
+
+

@@ -1,8 +1,5 @@
-
 var gameWidth = 400;
 var gameHeight = 400;
-
-//sets score and lives
 var scoreCounter = 0;
 var livesCounter = 3;
 
@@ -18,7 +15,6 @@ var Enemy = function() {
 }
     
 Enemy.prototype.update = function(dt) {
-//advances enemy
     this.x += this.speed * dt;
 
 //detects collision with player
@@ -40,9 +36,11 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+/* respawns enemy outside of the canvas edge 
+at a randomly generated y position */
 Enemy.prototype.reset = function() {
     this.x = -100;
-    this.y = this.yPos[Math.round(Math.random() * this.yPos.length)];
+    this.y = this.yPos[Math.floor(Math.random() * this.yPos.length)];
 }    
 
 //Player
@@ -63,7 +61,7 @@ Player.prototype.update = function() {
         scoreCounter++;
     }
 
-//Game Over Message
+//Game Over message and resets the game
     if (livesCounter < 1){
         alert('Game Over');
         livesCounter = 3;
@@ -72,7 +70,6 @@ Player.prototype.update = function() {
 }
 
 //renders player sprite and scorekeeping/lives text
-
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
@@ -89,15 +86,12 @@ Player.prototype.render = function() {
     ctx.fillText(livesCounter, 460, 115);
 }
 
-//resets player to initial position
-
 Player.prototype.reset = function(){
     this.x = 200;
     this.y = 400;
 }
 
-//handles user key input
-
+//advaces player according to key input
 Player.prototype.handleInput = function(key) {
     switch (key) {
         case 'up':
@@ -133,6 +127,7 @@ var allEnemies = [
 
 var player = new Player();
 
+//user key input
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
